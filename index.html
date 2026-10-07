@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vocabulary</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;700&family=Sarabun:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/dreampulse/computer-modern-web-font@master/fonts.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <script src="nav.js"></script>
+
+  <main>
+    <header class="page-banner">
+      <h1>Vocabulary</h1>
+    </header>
+
+    <fieldset class="cov-dash" id="cov-dash" hidden></fieldset>
+
+    <div class="vocab-controls vocab-panel" id="vocab-filter">
+      <div class="vocab-panel-row vocab-panel-row--what">
+        <span class="vocab-control-label">Deck</span>
+        <div class="vocab-deck-picker">
+          <select id="deck-select" class="vocab-deck-select" aria-label="Select deck"></select>
+          <input type="text" id="deck-input" class="vocab-deck-input" hidden aria-label="Deck name">
+        </div>
+        <div class="vocab-deck-actions" id="deck-view-actions">
+          <button id="deck-rename" type="button" class="vocab-deck-action" title="Rename deck" aria-label="Rename deck">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+          </button>
+          <button id="deck-delete" type="button" class="vocab-deck-action vocab-deck-action--danger" title="Delete deck" aria-label="Delete deck">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
+          </button>
+        </div>
+        <button id="deck-new" type="button" class="vocab-deck-new">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          <span>New deck</span>
+        </button>
+        <button id="deck-add-filtered" type="button" class="vocab-deck-add-filtered" hidden>Add filtered cards</button>
+      </div>
+      <div class="vocab-panel-row vocab-panel-row--filter">
+        <span class="vocab-control-label">Filter</span>
+        <span class="vocab-search-wrap">
+          <input type="search" id="vocab-search" class="vocab-search" placeholder="Search Thai or English…" autocomplete="off">
+          <button type="button" id="vocab-search-clear" class="vocab-search-clear" aria-label="Clear search" hidden>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+          </button>
+        </span>
+        <div class="vocab-filter-group" data-dim="frequency">
+          <div class="vocab-filter-chips"></div>
+        </div>
+      </div>
+      <div class="vocab-panel-row vocab-panel-row--how">
+        <span class="vocab-control-label">Show</span>
+        <div class="vocab-toggle" id="face-toggle">
+          <button data-face="both" class="active">Both</button>
+          <button data-face="thai">Thai</button>
+          <button data-face="english">English</button>
+        </div>
+        <span class="vocab-toggle-set">
+          <span class="vocab-control-label">Audio</span>
+          <div class="vocab-toggle" id="audio-toggle">
+            <button data-audio="th" class="active">Thai</button>
+            <button data-audio="en">English</button>
+          </div>
+        </span>
+        <label class="vocab-check vocab-deck-only" id="deck-only-label" hidden>
+          <input type="checkbox" id="deck-only"> Only show deck cards
+        </label>
+      </div>
+    </div>
+
+    <div class="vocab-count-bar">
+      <span class="vocab-count" id="vocab-count"></span>
+      <select id="vocab-limit" class="vocab-limit-select" aria-label="How many cards to display">
+        <option value="60">60 cards</option>
+        <option value="120">120 cards</option>
+        <option value="300">300 cards</option>
+        <option value="0">All</option>
+      </select>
+      <div class="vocab-count-backup">
+        <span class="vocab-backup-status" id="backup-status" aria-live="polite"></span>
+        <button id="backup-export" type="button" class="vocab-backup-btn" title="Download a backup of your study progress">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>Export</span>
+        </button>
+        <button id="backup-import" type="button" class="vocab-backup-btn" title="Restore progress from a backup file">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          <span>Import</span>
+        </button>
+        <input type="file" id="backup-file" accept="application/json,.json" hidden>
+      </div>
+    </div>
+    <div id="vocab-groups"></div>
+  </main>
+
+  <script src="vocab.js"></script>
+  <script>VOCAB.init();</script>
+</body>
+</html>

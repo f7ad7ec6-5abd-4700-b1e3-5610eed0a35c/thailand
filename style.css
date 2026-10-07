@@ -1,0 +1,3040 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #fcfcfc;
+  --surface: #ffffff;
+  --surface-alt: #f0f7ff;
+  --surface-muted: #fafafa;
+  --text: #111111;
+  --text-soft: #333333;
+  --text-muted: #555555;
+  --border: #e0e0e0;
+  --accent: #4a90d9;
+  --accent-strong: #003366;
+  --code-bg: #f5f5f5;
+  --code-text: #660000;
+}
+
+[data-theme="dark"] {
+  --bg: #0f172a;
+  --surface: #1b2638;
+  --surface-alt: #233149;
+  --surface-muted: #18233a;
+  --text: #ccd5e2;
+  --text-soft: #aeb9ca;
+  --text-muted: #8b97a9;
+  --border: #334155;
+  --accent: #60a5fa;
+  --accent-strong: #93c5fd;
+  --code-bg: #0c1626;
+  --code-text: #fca5a5;
+}
+
+html { color-scheme: light dark; }
+
+body {
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 15px;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.6;
+}
+
+/* ── Navigation ── */
+nav {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+nav .nav-inner {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: stretch;
+}
+
+.nav-link {
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: var(--text-soft);
+  text-decoration: none;
+  padding: 0.8rem 1rem;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+}
+
+.nav-home {
+  font-weight: 700;
+  color: var(--text);
+}
+
+.nav-link.nav-active {
+  font-weight: 700;
+  color: var(--accent-strong);
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+}
+
+.nav-link:hover {
+  background: var(--surface-alt);
+  color: var(--accent-strong);
+}
+
+.nav-item {
+  position: relative;
+  display: flex;
+}
+
+.nav-item > .submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: none;
+  list-style: none;
+  min-width: 160px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.nav-item:hover > .submenu {
+  display: block;
+}
+
+.nav-item:hover > .submenu.submenu-sections {
+  display: flex;
+}
+
+.submenu-col {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  min-width: 150px;
+  white-space: nowrap;
+}
+
+.submenu-col:not(:last-child) {
+  border-right: 2px solid var(--border);
+}
+
+.submenu li a {
+  display: block;
+  padding: 0.4rem 1.2rem;
+  font-size: 1rem;
+  color: var(--text-soft);
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.submenu li a:hover {
+  background: var(--surface-alt);
+  color: var(--accent-strong);
+}
+
+/* Wrapper around the category items + language toggle. On desktop it lays them
+   out exactly as before (a transparent flex row); on mobile it becomes the
+   hamburger-controlled dropdown (see the mobile media query). */
+.nav-links {
+  display: flex;
+  align-items: stretch;
+}
+
+/* Mobile-only spacer that right-aligns the toggles; inert on desktop. */
+.nav-spacer { display: none; }
+
+/* Hamburger: hidden on desktop, shown on mobile by the media query. */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  padding: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.nav-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+.nav-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.active span:nth-child(2) { opacity: 0; }
+.nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── Main content ── */
+main {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem 4rem;
+}
+
+h1 {
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 2.8rem;
+  font-weight: 420;
+  padding-top: 0.6rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+
+h2 {
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.4rem;
+  color: var(--text);
+  border-bottom: 2px solid var(--accent);
+  margin-bottom: 1.5rem;
+}
+
+h3 {
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--accent);
+}
+
+h4 {
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-top: 1.8rem;
+  margin-bottom: 0.6rem;
+}
+
+p {
+  font-size: 1.05rem;
+  line-height: 1.6rem;
+  margin-bottom: 0.4rem;
+  text-align: justify;
+}
+
+a {
+  color: var(--accent-strong);
+  text-decoration: none;
+  border-radius: 3px;
+  transition: background 0.2s;
+}
+
+a:hover {
+  background: var(--surface-alt);
+}
+
+ul, ol {
+  font-size: 1.05rem;
+  line-height: 1.6rem;
+  margin-bottom: 1rem;
+  padding-left: 2rem;
+}
+
+code {
+  font-family: 'Inconsolata', monospace;
+  font-size: 0.9em;
+  color: var(--code-text);
+  background: var(--code-bg);
+  padding: 0.1em 0.3em;
+  border-radius: 3px;
+}
+
+pre {
+  margin: 1rem 0;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  overflow-x: auto;
+}
+
+pre code,
+pre code[class*="language-"] {
+  display: block;
+  padding: 0.2rem 1.2rem;
+  font-size: 0.79rem;
+  line-height: 1.5;
+  color: inherit;
+  background: none;
+  border-radius: 0;
+}
+
+/* Collapsible per-section Python implementation */
+details.code-block {
+  margin: 1rem 0 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface-muted);
+}
+
+details.code-block > summary {
+  cursor: pointer;
+  list-style: none;
+  font-family: 'Computer Modern Serif', serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--accent-strong);
+  padding: 0.55rem 0.9rem;
+  user-select: none;
+}
+
+details.code-block > summary::-webkit-details-marker { display: none; }
+
+details.code-block > summary::before {
+  content: "\25B8";          /* right-pointing triangle */
+  display: inline-block;
+  margin-right: 0.5rem;
+  font-size: 0.8em;
+  transition: transform 0.15s;
+}
+
+details.code-block[open] > summary::before { transform: rotate(90deg); }
+details.code-block > summary:hover { color: var(--accent); }
+
+details.code-block > pre {
+  margin: 0;
+  border: none;
+  border-top: 1px solid var(--border);
+  border-radius: 0 0 6px 6px;
+  background: var(--surface);
+}
+
+details.code-block > p {
+  margin: 0;
+  padding: 0.55rem 0.9rem;
+  border-top: 1px solid var(--border);
+}
+
+/* ── Fiche-style bullet list (no ul padding, custom accent marker) ── */
+.fiche-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0.5rem 0 1.25rem;
+}
+
+.fiche-list > li {
+  position: relative;
+  padding-left: 1.3rem;
+  margin-bottom: 0.9rem;
+  line-height: 1.6rem;
+}
+
+.fiche-list > li:last-child {
+  margin-bottom: 0;
+}
+
+.fiche-list > li::before {
+  content: "";
+  position: absolute;
+  left: 0.15rem;
+  top: 0.6rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  background: var(--accent);
+  border-radius: 50%;
+}
+
+/* ── KaTeX display overrides ── */
+.katex { font-size: 1em !important; white-space: nowrap; }
+
+.katex-display {
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.5rem 0;
+  /* display equations sit directly in <main> (1rem); match the 1.05rem of
+     surrounding paragraph text so they render at the same size as the inline
+     math used on the course pages */
+  font-size: 1.05rem;
+}
+
+/* ── Theorem-like blocks ── */
+.thm-block {
+  margin: 0.5rem 0;
+}
+
+.thm-block p {
+  text-align: left;
+}
+
+.thm-block ul, .thm-block ol {
+  text-align: left;
+  margin-left: 0;
+  margin-bottom: 0.8rem;
+}
+
+/* Accent dot marker on thm-blocks WITHOUT an attached proof (definitions,
+   examples, remarks). Proof-toggle blocks keep their inline ▸ on the label. */
+.thm-block:not(:has(+ .proof)) {
+  position: relative;
+  padding-left: 1.3rem;
+}
+
+.thm-block:not(:has(+ .proof))::before {
+  content: "";
+  position: absolute;
+  left: 0.15rem;
+  top: 0.6rem;
+  width: 0.5rem;
+  height: 0.5rem;
+  background: var(--accent);
+  border-radius: 50%;
+}
+
+.thm-label {
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.proof {
+  margin: 0 0 0.5rem 0;
+  padding-left: 1.2rem;
+  font-size: 1.05rem;
+  line-height: 1.6rem;
+}
+
+/* Hide the proof summary entirely; the thm-label is the toggle */
+.proof > .proof-label {
+  display: none;
+}
+
+/* Clickable indicator on thm-labels that have a proof */
+.thm-label.has-proof {
+  cursor: pointer;
+}
+
+.thm-label.has-proof::before {
+  content: '▸ ';
+  color: var(--accent);
+}
+
+.thm-label.has-proof.proof-open::before {
+  content: '▾ ';
+}
+
+.proof-body {
+  white-space: pre-line;
+}
+
+
+/* ── Language toggle ── */
+html[lang="en"] .fr { display: none; }
+html[lang="fr"] .en { display: none; }
+
+.lang-toggle {
+  position: absolute;
+  left: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.lang-toggle button {
+  padding: 0.35rem 0.6rem;
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  background: none;
+  color: var(--text-muted);
+}
+
+.lang-toggle button:not(:last-child) {
+  border-right: 1px solid var(--border);
+}
+
+.lang-toggle button.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+.lang-toggle button:not(.active):hover {
+  background: var(--surface-alt);
+  color: var(--accent);
+}
+
+/* ── Theme (light/dark) toggle ── */
+.theme-toggle {
+  position: absolute;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.toggle-track {
+  position: relative;
+  width: 48px;
+  height: 26px;
+  background: #e2e8f0;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 5px;
+  transition: background 0.3s ease;
+}
+
+[data-theme="dark"] .toggle-track { background: #475569; }
+
+.toggle-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+[data-theme="dark"] .toggle-thumb { transform: translateX(22px); }
+
+.icon-sun { color: #f59e0b; }
+.icon-moon { color: #94a3b8; }
+[data-theme="dark"] .icon-sun { color: #64748b; }
+[data-theme="dark"] .icon-moon { color: #fbbf24; }
+
+/* ── Computational Genomics page ── */
+.skew-viz {
+  margin-top: 1.2rem;
+  margin-bottom: 0.8rem;
+}
+
+.skew-input-label {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.skew-input {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Inconsolata', monospace;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: var(--text-soft);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.4rem 0.6rem;
+  margin-bottom: 0.6rem;
+  resize: none;
+  overflow: hidden;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.skew-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.skew-canvas {
+  width: 100%;
+  display: block;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+
+.skew-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+  margin-bottom: 0.4rem;
+}
+
+.skew-controls button {
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 0.95rem;
+  padding: 0.35rem 1rem;
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 700;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.skew-controls button:hover {
+  background: #3a7bc8;
+  border-color: #3a7bc8;
+}
+
+.skew-controls select {
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 0.95rem;
+  padding: 0.3rem 2rem 0.3rem 0.5rem;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  color: var(--text);
+  background: var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23555'/%3E%3C/svg%3E") no-repeat right 0.5rem center;
+  appearance: none;
+  cursor: pointer;
+}
+
+.skew-controls label {
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.skew-readout {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.skew-readout .skew-ori {
+  color: #d35400;
+  font-weight: 700;
+}
+
+.skew-legend .sw {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  margin: 0 2px -1px 8px;
+}
+
+.skew-legend .sw.g { background: #2e7d32; }
+.skew-legend .sw.c { background: #c0392b; }
+.skew-legend .sw.at { background: #d9d9d9; }
+
+/* ── Computational Genomics: greedy motif search ── */
+.greedy-viz {
+  margin-top: 1.2rem;
+  margin-bottom: 0.8rem;
+}
+
+.greedy-strings {
+  font-family: 'Inconsolata', monospace;
+  font-size: 1rem;
+  line-height: 1.5;
+  background: var(--surface-muted);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.6rem 0.8rem;
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.greedy-kmer {
+  background: #cfe6cf;
+  border-radius: 2px;
+}
+
+.greedy-seed {
+  background: #bcd6f5;
+}
+
+.greedy-row.greedy-dim {
+  color: #c4c4c4;
+}
+
+.greedy-scan {
+  background: #ffe08a;
+  border-radius: 2px;
+}
+
+.greedy-scanbest {
+  outline: 2px solid #2e7d32;
+  border-radius: 2px;
+}
+
+.greedy-panels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  align-items: flex-start;
+  margin-top: 0.8rem;
+}
+
+.greedy-matrix {
+  margin: 0;
+}
+
+.greedy-matrix figcaption {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 0.3rem;
+}
+
+.greedy-matrix table {
+  border-collapse: collapse;
+  font-family: 'Inconsolata', monospace;
+  font-size: 0.9rem;
+}
+
+.greedy-matrix th, .greedy-matrix td {
+  border: 1px solid #e6e6e6;
+  padding: 0.15rem 0.55rem;
+  text-align: center;
+  color: var(--text-soft);
+}
+
+.greedy-matrix th {
+  color: var(--text-muted);
+  font-weight: 700;
+}
+
+.greedy-matrix td.max {
+  background: #cfe6cf;
+  color: #1b5e20;
+  font-weight: 700;
+}
+
+.greedy-matrix tr.greedy-consensus td {
+  border: none;
+  font-weight: 700;
+  color: #2e7d32;
+  padding-top: 0.35rem;
+}
+
+.greedy-side {
+  margin-top: 1rem;
+  width: 100%;
+  font-size: 0.95rem;
+  color: var(--text-soft);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface-muted);
+  overflow: hidden;
+}
+
+.greedy-line {
+  display: grid;
+  grid-template-columns: 8.5rem 1fr;
+  gap: 0.8rem;
+  align-items: baseline;
+  padding: 0.4rem 0.9rem;
+  border-top: 1px solid #ececec;
+}
+
+.greedy-status > .greedy-line:first-child {
+  border-top: none;
+}
+
+.greedy-label {
+  color: #8a8a8a;
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.greedy-val {
+  color: var(--text-soft);
+}
+
+.greedy-best .greedy-val {
+  font-weight: 700;
+}
+
+.greedy-calc-val {
+  font-family: 'Inconsolata', monospace;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.greedy-best b {
+  color: #d35400;
+}
+
+.greedy-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.8rem;
+}
+
+.greedy-controls button {
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 0.95rem;
+  padding: 0.35rem 1rem;
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 700;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.greedy-controls button:hover {
+  background: #3a7bc8;
+  border-color: #3a7bc8;
+}
+
+.greedy-controls select {
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 0.95rem;
+  padding: 0.3rem 2rem 0.3rem 0.5rem;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+  color: var(--text);
+  background: var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23555'/%3E%3C/svg%3E") no-repeat right 0.5rem center;
+  appearance: none;
+  cursor: pointer;
+}
+
+.greedy-controls label {
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+/* ── Framed page title (shared) ── */
+.page-banner {
+  text-align: center;
+  width: 70%;
+  margin: 0.6rem auto 1.2rem;
+  padding: 1rem 1.6rem;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(3, 51, 102, 0.08);
+}
+
+.page-banner h1 {
+  display: inline-block;
+  margin: 0;
+  padding: 0 0 0.12rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  border: none;
+  border-bottom: 2px solid var(--accent);
+}
+
+@media (max-width: 600px) {
+  .page-banner {
+    width: auto;
+    margin: 0.6rem 0 1.2rem;
+  }
+}
+
+/* ── Thai vocabulary page ── */
+.vocab-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem 0.8rem;
+  margin-bottom: 0.7rem;
+  padding: 0.7rem 0.9rem;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+/* Unified control panel: row 1 chooses which cards you see (deck + search),
+   row 2 how they are shown (frequency chips + face/audio toggles). Each row
+   fills its full width; the search and the toggles are pushed to the right
+   edge so no row trails off into empty space. */
+.vocab-panel {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+}
+
+.vocab-panel-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.7rem;
+  padding: 0.55rem 0;
+}
+
+.vocab-panel-row:first-child { padding-top: 0; }
+.vocab-panel-row:last-child { padding-bottom: 0; }
+.vocab-panel-row + .vocab-panel-row { border-top: 1px solid var(--border); }
+
+/* Only the line's leading label gets the shared width, so the label column
+   aligns across rows; labels further down a line (Audio) stay natural. */
+.vocab-panel-row > .vocab-control-label:first-child { min-width: 5.5rem; }
+
+/* The deck-only checkbox closes the Show line at the right edge; on narrow
+   screens it wraps and joins the left-aligned stack like everything else. */
+.vocab-panel-row--how .vocab-deck-only { margin-left: auto; }
+@media (max-width: 600px) {
+  .vocab-panel-row--how .vocab-deck-only { margin-left: 0; }
+}
+
+/* The chips group sits inline after the search; its standalone padding would
+   double the row's. */
+.vocab-panel-row .vocab-filter-group { padding: 0; }
+
+/* Keeps a label and its toggle on the same line when the row wraps, and sets
+   the Audio pair clearly apart from the face toggle before it. */
+.vocab-toggle-set {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem 0.7rem;
+  margin-left: 1.8rem;
+}
+@media (max-width: 600px) {
+  /* Wrapped into the vertical stack, the extra offset would read as a stray
+     indent. */
+  .vocab-toggle-set { margin-left: 0; }
+}
+
+.vocab-control-label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--accent-strong);
+}
+
+.vocab-check {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.92rem;
+  cursor: pointer;
+}
+
+.vocab-check input {
+  accent-color: var(--accent);
+  color-scheme: light;
+  cursor: pointer;
+}
+
+
+.vocab-toggle {
+  display: flex;
+  border: 1px solid var(--accent);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.vocab-toggle button {
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 0.4rem 0.9rem;
+  border: none;
+  background: var(--surface);
+  color: var(--accent);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.vocab-toggle button:not(:last-child) {
+  border-right: 1px solid var(--accent);
+}
+
+.vocab-toggle button.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+.vocab-toggle button:not(.active):hover {
+  background: #e3f0fc;
+}
+
+/* Grows to fill whatever is left of its line, so on wide screens it packs the
+   row full and when it wraps it spans the new line instead of leaving a hole.
+   The low basis is what flex uses to decide line breaks: it must leave room
+   for the chips AND the Add-filtered button on one line at the narrowest
+   desktop width, otherwise the button drops onto a half-empty line. */
+.vocab-search-wrap {
+  position: relative;
+  flex: 1 1 150px;
+}
+
+.vocab-search {
+  width: 100%;
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 0.95rem;
+  padding: 0.4rem 2rem 0.4rem 0.7rem;
+  border: 1px solid #bbb;
+  border-radius: 5px;
+  background: var(--surface);
+  color: var(--text);
+}
+
+.vocab-search:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* Replaces the browser's native search-cancel icon, which keeps a text cursor
+   and doesn't exist in Firefox. */
+.vocab-search::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  display: none;
+}
+
+.vocab-search-clear {
+  position: absolute;
+  right: 0.35rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.4rem;
+  height: 1.4rem;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+/* display: flex above would otherwise override the hidden attribute. */
+.vocab-search-clear[hidden] {
+  display: none;
+}
+
+.vocab-search-clear:hover {
+  background: rgba(0, 0, 0, 0.08);
+  color: var(--text);
+}
+
+[data-theme="dark"] .vocab-search-clear:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.vocab-search-clear svg {
+  width: 0.8rem;
+  height: 0.8rem;
+}
+
+/* Results toolbar: a slim full-width strip above the card grid, like a data
+   table's "showing X of Y" info row. The bottom rule ties it to the cards. */
+/* Results toolbar: count + page-size on the left (they are the same thought),
+   backup on the right, so the strip works for its height instead of holding a
+   single floating sentence. */
+.vocab-count-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.8rem;
+  margin: 0 0 1rem;
+  padding: 0 0.15rem 0.6rem;
+  border-bottom: 1px solid var(--border);
+  min-height: 1.7rem;
+}
+.vocab-count {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+/* The figures stand out from the surrounding muted words. */
+.vocab-count-n {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.vocab-limit-select {
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.15rem 0.4rem;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: var(--surface);
+  color: var(--text-soft);
+  cursor: pointer;
+}
+.vocab-limit-select:hover { border-color: var(--accent); }
+
+.vocab-count-backup {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: auto;
+}
+/* Backup buttons shrink to match the strip's slim scale. */
+.vocab-count-backup .vocab-backup-btn {
+  font-size: 0.82rem;
+  padding: 0.2rem 0.55rem;
+}
+.vocab-count-backup .vocab-backup-btn svg { width: 12px; height: 12px; }
+.vocab-count-backup .vocab-backup-status { font-size: 0.82rem; }
+
+.vocab-filter-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.7rem;
+  padding: 0.55rem 0;
+}
+
+.vocab-filter-group > .vocab-control-label {
+  min-width: 5.5rem;
+}
+
+.vocab-filter-group:first-child { padding-top: 0; }
+.vocab-filter-group:last-child { padding-bottom: 0; }
+
+.vocab-filter-group + .vocab-filter-group {
+  border-top: 1px solid var(--border);
+}
+
+.vocab-filter-bulk button {
+  font-size: 0.82rem;
+  padding: 0.3rem 0.7rem;
+}
+
+.vocab-filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  flex: 1 1 100%;
+}
+
+/* Frequency has just four chips and no bulk control, so they sit inline with
+   the label instead of wrapping onto their own line. */
+.vocab-filter-group[data-dim="frequency"] .vocab-filter-chips {
+  flex: 0 1 auto;
+}
+
+.vocab-chip {
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 0.2rem 0.62rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s, opacity 0.15s;
+}
+
+/* Deselected: drop the color class, fall back to a muted outline. */
+.vocab-chip--off {
+  background: var(--surface);
+  color: var(--text-muted);
+  border-color: var(--border);
+  opacity: 0.6;
+}
+
+.vocab-chip:hover { opacity: 0.85; }
+.vocab-chip--off:hover { opacity: 1; }
+
+.vocab-group {
+  margin-bottom: 2.4rem;
+}
+
+.vocab-group-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--accent);
+}
+
+.vocab-group-count {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent);
+  background: #eaf3fc;
+  border-radius: 999px;
+  padding: 0.05rem 0.6rem;
+}
+
+/* Frequency colour palette (shared by group headings and per-card borders). */
+:root {
+  --freq-everyday: #2e9e5b;
+  --freq-common: var(--accent);
+  --freq-occasional: #c98a2b;
+  --freq-rare: #c0593c;
+}
+
+/* Per-card borders carry the same colour cue, so the user can tell at a
+   glance how frequent a word is — works in both the vocabulary list (both
+   the simple .vocab-card and the flip-mode .vocab-face inside) and on the
+   flashcards review card. */
+.vocab-card--freq-everyday { border-color: var(--freq-everyday); }
+.vocab-card--freq-common { border-color: var(--freq-common); }
+.vocab-card--freq-occasional { border-color: var(--freq-occasional); }
+.vocab-card--freq-rare { border-color: var(--freq-rare); }
+/* Frequency tiers get a distinguishing accent on the heading rule. */
+.vocab-group--everyday > .vocab-group-title { border-bottom-color: #2e9e5b; }
+.vocab-group--everyday > .vocab-group-title .vocab-group-count {
+  color: #2e9e5b; background: #e6f4ec;
+}
+.vocab-group--occasional > .vocab-group-title { border-bottom-color: #c98a2b; }
+.vocab-group--occasional > .vocab-group-title .vocab-group-count {
+  color: #b8791d; background: #faf0df;
+}
+.vocab-group--rare > .vocab-group-title { border-bottom-color: #c0593c; }
+.vocab-group--rare > .vocab-group-title .vocab-group-count {
+  color: #b5482e; background: #f7e9e4;
+}
+
+.vocab-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.8rem;
+}
+
+.vocab-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0;
+  min-height: calc(4 * 26px + 3 * 0.3rem + 12px);
+  background: var(--surface);
+  border: 1px solid #e3e3e3;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+  transition: box-shadow 0.18s, transform 0.18s, border-color 0.18s;
+}
+
+.vocab-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 0.35rem;
+  padding: 0.8rem 0.5rem 0.8rem 0.9rem;
+  margin-right: 2rem;
+}
+
+.vocab-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 6px 16px rgba(74,144,217,0.16);
+  transform: translateY(-2px);
+}
+
+/* Flip card mode: outer .vocab-card is a transparent perspective wrapper.
+   Each face acts as the visible card surface (border / bg / freq colour);
+   inside, the face splits into body + tools bands just like the both-mode
+   card, so the full card-shaped surface turns on flip. */
+.vocab-card--flip {
+  display: block;
+  position: relative;
+  padding: 0;
+  background: none;
+  border: none;
+  box-shadow: none;
+  overflow: visible;
+  cursor: pointer;
+  -webkit-perspective: 900px;
+  perspective: 900px;
+}
+.vocab-card--flip:hover { transform: none; box-shadow: none; }
+
+/* In flip mode the in-deck (green) and suspended (red) colours belong on the
+   faces only. Keep the perspective wrapper transparent so the colour doesn't
+   show through behind the rotor while the card is edge-on mid-flip. The
+   dark-theme selectors are listed too, with enough specificity to beat the
+   later [data-theme="dark"] .vocab-card--in-deck / --suspended rules. */
+.vocab-card--flip.vocab-card--in-deck,
+.vocab-card--flip.vocab-card--suspended,
+[data-theme="dark"] .vocab-card--flip.vocab-card--in-deck,
+[data-theme="dark"] .vocab-card--flip.vocab-card--suspended {
+  background: none;
+}
+
+/* A hidden twin in normal flow gives the card its height (the taller of the
+   two faces), so it fits its content with no fixed height. */
+.vocab-flip-ghost {
+  display: grid;
+  visibility: hidden;
+  pointer-events: none;
+}
+.vocab-flip-ghost > .vocab-face {
+  grid-area: 1 / 1;
+  position: static;
+}
+
+/* The rotor overlays the ghost and turns in 3D. JS runs the turn in two
+   halves (front to edge, swap face, new face from edge), so the visible face
+   stays within +/-90 deg and we never rely on backface-visibility. */
+.vocab-flip-rotor {
+  position: absolute;
+  inset: 0;
+  transform: rotateY(0deg);
+  transform-origin: center center;
+}
+
+/* Each face provides the visible card surface (border, bg, freq, suspended
+   state). Body + tools follow the same pattern as the both-mode card. */
+.vocab-face {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0;
+  min-height: calc(4 * 26px + 3 * 0.3rem + 12px);
+  background: var(--surface);
+  border: 1px solid #e3e3e3;
+  border-radius: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+/* Freq + suspended states land on the face since the card itself is
+   transparent in flip mode. */
+.vocab-card--flip.vocab-card--freq-everyday .vocab-face { border-color: var(--freq-everyday); }
+.vocab-card--flip.vocab-card--freq-common .vocab-face { border-color: var(--freq-common); }
+.vocab-card--flip.vocab-card--freq-occasional .vocab-face { border-color: var(--freq-occasional); }
+.vocab-card--flip.vocab-card--freq-rare .vocab-face { border-color: var(--freq-rare); }
+.vocab-card--flip.vocab-card--suspended .vocab-face {
+  background: #fbe9e4;
+  border-color: #f0c8bb;
+}
+[data-theme="dark"] .vocab-card--flip.vocab-card--suspended .vocab-face {
+  background: rgba(192, 89, 60, 0.22);
+  border-color: rgba(192, 89, 60, 0.45);
+}
+
+.vocab-face--front,
+.vocab-face--back {
+  position: absolute;
+  inset: 0;
+}
+
+/* The visible face is swapped (instantly) by JS while the card is edge-on. */
+.vocab-face--front { opacity: 1; }
+.vocab-face--back { opacity: 0; }
+.vocab-card--flip.flipped .vocab-face--front { opacity: 0; }
+.vocab-card--flip.flipped .vocab-face--back { opacity: 1; }
+
+.vocab-tools {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 2rem;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  border-left: 1px solid var(--border);
+  background: var(--surface-alt);
+  border-radius: 0 7px 7px 0;
+}
+
+/* Copy-word control: copies the visible side without flipping the card. */
+.vocab-copy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid #e3e3e3;
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+  opacity: 0.45;
+  transition: opacity 0.18s, color 0.18s, border-color 0.18s;
+}
+
+.vocab-card:hover .vocab-copy,
+.vocab-card--flip:hover .vocab-copy { opacity: 0.8; }
+
+.vocab-copy:hover {
+  opacity: 1;
+  color: var(--accent-strong);
+  border-color: var(--accent);
+}
+
+.vocab-copy svg {
+  width: 14px;
+  height: 14px;
+}
+
+.vocab-copy-i--check { display: none; }
+
+.vocab-copy.copied {
+  opacity: 1;
+  color: #2e9e5b;
+  border-color: #2e9e5b;
+}
+.vocab-copy.copied .vocab-copy-i--copy { display: none; }
+.vocab-copy.copied .vocab-copy-i--check { display: block; }
+
+/* Suspend control: toggles indefinite suspension. When active, the card
+   itself gets a soft-red background via .vocab-card--suspended. */
+.vocab-suspend {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid #e3e3e3;
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+  opacity: 0.45;
+  transition: opacity 0.18s, color 0.18s, border-color 0.18s, background 0.18s;
+}
+.vocab-card:hover .vocab-suspend,
+.vocab-card--flip:hover .vocab-suspend { opacity: 0.8; }
+.vocab-suspend:hover { opacity: 1; color: #b5482e; border-color: #b5482e; }
+.vocab-suspend svg { width: 14px; height: 14px; }
+
+/* Frequency-review marker: a reassigned card's picker button stays accent-lit. */
+.vocab-suspend.vocab-freq-set,
+.vocab-card:hover .vocab-suspend.vocab-freq-set {
+  opacity: 1;
+  color: #fff;
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+/* Frequency picker popup. */
+.vocab-freq-menu {
+  position: fixed;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  min-width: 160px;
+  padding: 0.3rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+}
+.vocab-freq-opt {
+  padding: 0.45rem 0.6rem;
+  text-align: left;
+  font-size: 0.9rem;
+  color: var(--text);
+  background: none;
+  border: 0;
+  border-radius: 0.35rem;
+  cursor: pointer;
+}
+.vocab-freq-opt:hover { background: var(--surface-alt); }
+.vocab-freq-opt.is-current { color: var(--accent); font-weight: 700; }
+
+/* Suspended card: soft red background, persistent indicator. */
+.vocab-card--suspended { background: #fbe9e4; border-color: #f0c8bb; }
+.vocab-card--suspended .vocab-suspend {
+  opacity: 1;
+  color: #fff;
+  background: #b5482e;
+  border-color: #b5482e;
+}
+[data-theme="dark"] .vocab-card--suspended {
+  background: rgba(192, 89, 60, 0.22);
+  border-color: rgba(192, 89, 60, 0.45);
+}
+
+/* ── Deck controls ──
+   Custom-deck picker: dropdown + rename / delete / new buttons, inline in the
+   control panel's first row. */
+.vocab-deck-picker {
+  position: relative;
+  display: inline-flex;
+}
+
+.vocab-deck-select,
+.vocab-deck-input {
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 0.4rem 0.7rem;
+  min-width: 180px;
+  border: 1px solid var(--accent);
+  border-radius: 5px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.vocab-deck-select {
+  padding-right: 2rem;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23555'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.7rem center;
+}
+
+.vocab-deck-input { cursor: text; }
+.vocab-deck-input:focus,
+.vocab-deck-select:focus {
+  outline: none;
+  border-color: var(--accent-strong);
+  box-shadow: 0 0 0 2px rgba(74, 144, 217, 0.18);
+}
+
+.vocab-deck-actions {
+  display: inline-flex;
+  gap: 0.3rem;
+}
+
+.vocab-deck-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 0.18s, border-color 0.18s, background 0.18s, opacity 0.18s;
+}
+
+.vocab-deck-action svg { width: 15px; height: 15px; }
+
+.vocab-deck-action:hover:not(:disabled) {
+  color: var(--accent-strong);
+  border-color: var(--accent);
+}
+
+.vocab-deck-action:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.vocab-deck-action--danger:hover:not(:disabled) {
+  color: #b5482e;
+  border-color: #b5482e;
+}
+
+.vocab-deck-new {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid #2e9e5b;
+  border-radius: 5px;
+  background: var(--surface);
+  color: #2e9e5b;
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+}
+
+.vocab-deck-new svg { width: 13px; height: 13px; }
+
+.vocab-deck-new:hover {
+  background: #2e9e5b;
+  color: #fff;
+}
+
+/* Progress export / import row. */
+.vocab-backup-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: var(--surface);
+  color: var(--accent-strong);
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, border-color 0.18s;
+}
+
+.vocab-backup-btn svg { width: 14px; height: 14px; }
+
+.vocab-backup-btn:hover {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+}
+
+.vocab-backup-status {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.vocab-backup-status.is-error {
+  color: #c0392b;
+}
+
+.vocab-deck-add-filtered {
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  padding: 0.4rem 0.8rem;
+  border: 1px solid var(--accent);
+  border-radius: 5px;
+  background: var(--surface);
+  color: var(--accent);
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+}
+.vocab-deck-add-filtered:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+.vocab-deck-only {
+  font-size: 0.88rem;
+  color: var(--text-soft);
+}
+
+.vocab-deck-count {
+  margin-left: auto;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.vocab-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vocab-modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+  padding: 1.6rem 1.8rem 1.4rem;
+  max-width: 300px;
+  width: 90%;
+  font-family: 'Computer Modern Serif', serif;
+}
+
+.vocab-modal-msg {
+  font-size: 1rem;
+  color: var(--text);
+  margin-bottom: 1.2rem;
+  line-height: 1.5;
+}
+
+.vocab-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+}
+
+.vocab-modal-cancel {
+  padding: 0.4rem 1rem;
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: border-color 0.18s, color 0.18s;
+}
+.vocab-modal-cancel:hover { border-color: var(--accent); color: var(--accent); }
+
+.vocab-modal-confirm {
+  padding: 0.4rem 1rem;
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  border: 1px solid #b5482e;
+  border-radius: 5px;
+  background: #b5482e;
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.18s;
+}
+.vocab-modal-confirm:hover { background: #963c26; border-color: #963c26; }
+
+/* Card marked as in the currently selected custom deck: soft-green surface,
+   mirroring the soft-red treatment used for suspended cards. The JS strips
+   this class when a card is also suspended, so suspended (red) wins. */
+.vocab-card--in-deck {
+  background: #e6f4ec;
+  border-color: #b4dfc4;
+}
+.vocab-card--flip.vocab-card--in-deck .vocab-face {
+  background: #e6f4ec;
+  border-color: #b4dfc4;
+}
+[data-theme="dark"] .vocab-card--in-deck,
+[data-theme="dark"] .vocab-card--flip.vocab-card--in-deck .vocab-face {
+  background: rgba(46, 158, 91, 0.22);
+  border-color: rgba(46, 158, 91, 0.45);
+}
+
+/* Add/Remove control: shown only when a custom deck is selected. Plus icon
+   when the card isn't in the deck; minus icon when it is (toggled via the
+   .in-deck modifier). Matches the suspend-button rhythm. */
+.vocab-deck-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid #e3e3e3;
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+  opacity: 0.45;
+  transition: opacity 0.18s, color 0.18s, border-color 0.18s, background 0.18s;
+}
+.vocab-card:hover .vocab-deck-btn,
+.vocab-card--flip:hover .vocab-deck-btn { opacity: 0.85; }
+.vocab-deck-btn:hover {
+  opacity: 1;
+  color: #2e9e5b;
+  border-color: #2e9e5b;
+}
+.vocab-deck-btn svg { width: 14px; height: 14px; }
+
+.vocab-deck-i--remove { display: none; }
+.vocab-deck-btn.in-deck .vocab-deck-i--add { display: none; }
+.vocab-deck-btn.in-deck .vocab-deck-i--remove { display: block; }
+
+.vocab-deck-btn.in-deck {
+  opacity: 1;
+  color: #fff;
+  background: #2e9e5b;
+  border-color: #2e9e5b;
+}
+
+/* Speaker control: plays the Thai pronunciation. */
+.vocab-speak {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid #e3e3e3;
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+  opacity: 0.45;
+  transition: opacity 0.18s, color 0.18s, border-color 0.18s;
+}
+
+.vocab-card:hover .vocab-speak,
+.vocab-card--flip:hover .vocab-speak { opacity: 0.8; }
+
+.vocab-speak:hover {
+  opacity: 1;
+  color: var(--accent-strong);
+  border-color: var(--accent);
+}
+
+.vocab-speak svg { width: 15px; height: 15px; }
+
+/* Highlighted while its clip is playing. */
+.vocab-speak.playing {
+  opacity: 1;
+  color: var(--accent-strong);
+  border-color: var(--accent);
+}
+
+/* Extra side room on flip-card faces so the centered word never tucks under
+   the corner copy button. */
+.vocab-card--flip .vocab-face {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.vocab-en.vocab-prompt,
+.vocab-en.vocab-answer {
+  font-size: 1.25rem;
+  color: var(--text);
+}
+
+.vocab-thai {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 1.7rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--text);
+}
+
+/* Thai font choice (default Sarabun above; toggle switches to Noto Sans Thai) */
+body[data-thai-font="noto"] .vocab-thai {
+  font-family: 'Noto Sans Thai', sans-serif;
+}
+
+/* Inline Thai text inside prose (etymology and similar courses). */
+.th {
+  font-family: 'Sarabun', sans-serif;
+  font-weight: 500;
+}
+body[data-thai-font="noto"] .th {
+  font-family: 'Noto Sans Thai', sans-serif;
+}
+
+.vocab-en {
+  font-size: 0.98rem;
+  line-height: 1.4;
+  color: var(--text-soft);
+}
+
+/* Footer: classification tag on its own row, sources separated below it. */
+.vocab-meta {
+  margin-top: 0.5rem;
+}
+
+.vocab-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.35rem;
+}
+
+.vocab-sources {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.3rem;
+  margin-top: 0.45rem;
+  padding-top: 0.45rem;
+  border-top: 1px solid #efefef;
+}
+
+/* When the category row is hidden, sources sit alone without a divider. */
+.vocab-sources:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+.vocab-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+}
+
+.tag-freq.freq-everyday { color: #2e9e5b; background: #e6f4ec; }
+.tag-freq.freq-common { color: var(--accent-strong); background: #eaf3fc; }
+.tag-freq.freq-occasional { color: #b8791d; background: #faf0df; }
+.tag-freq.freq-rare { color: #b5482e; background: #f7e9e4; }
+
+.vocab-source {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.08rem 0.45rem;
+}
+
+.vocab-empty {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* Parked-items page: plain reference list */
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  body { font-size: 14px; }
+
+  /* Top bar: hamburger on the left, toggles + theme on the right. Vertical
+     padding gives the bar height now that the menu links (which used to supply
+     it) live in the dropdown. */
+  nav .nav-inner {
+    align-items: center;
+    padding: 0.55rem 1rem;
+  }
+
+  /* Home link is hidden on mobile; the hamburger takes its place on the left. */
+  .nav-home { display: none; }
+
+  /* Hamburger sits on the left (where Home used to be). */
+  .nav-toggle { display: flex; }
+
+  /* Spacer grows to fill the bar, pushing the toggle(s) + theme to the right. */
+  .nav-spacer { display: block; flex: 1 1 auto; }
+
+  /* Theme toggle on the far right, with a small gap from the toggle on its left. */
+  .theme-toggle {
+    position: static;
+    transform: none;
+    margin-left: 0.6rem;
+  }
+
+  /* The menu becomes a full-width dropdown revealed by the hamburger. */
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.10);
+    max-height: calc(100vh - 3.25rem);
+    overflow-y: auto;
+  }
+  .nav-links.open { display: flex; }
+
+  /* Both toggles (EN/FR language and Thai font) sit in the top bar, pushed to
+     the right by the spacer and ending up just left of the theme toggle. At
+     most one of them shows on a given page. */
+  .lang-toggle {
+    position: static;
+    transform: none;
+    margin: 0;
+  }
+  /* Shrink the Sarabun / Noto Sans pills a touch on mobile. */
+  #thai-font-toggle button {
+    font-size: 0.72rem;
+    padding: 0.43rem 0.4rem;
+  }
+
+  /* Categories stack as full-width rows. */
+  .nav-item { display: block; }
+  .nav-item > .nav-link {
+    border-top: 1px solid var(--border);
+    padding: 0.9rem 1rem;
+  }
+
+  /* Thai-only app: flat links get the same full-width row treatment. */
+  .nav-link--app {
+    border-top: 1px solid var(--border);
+    padding: 0.9rem 1rem;
+  }
+
+  /* Submenus collapse; tapping a category expands it (accordion). The hover
+     rules are neutralized so sticky touch-hover can't reveal them. */
+  .nav-item > .submenu,
+  .nav-item:hover > .submenu,
+  .nav-item:hover > .submenu.submenu-sections { display: none; }
+  .nav-item.open > .submenu,
+  .nav-item.open > .submenu.submenu-sections {
+    display: block;
+    position: static;
+    min-width: 0;
+    border: none;
+    box-shadow: none;
+    background: var(--surface-alt);
+  }
+
+  /* Stack the math menu's columns and drop the divider; indent the links. */
+  .submenu-col { min-width: 0; }
+  .submenu-col:not(:last-child) { border-right: none; }
+  .submenu li a { padding: 0.6rem 1rem 0.6rem 2rem; }
+
+  h1 { font-size: 2rem; }
+}
+
+/* ── Dark-mode tweaks for tinted pills (light backgrounds -> dark tints so
+   the now-light text stays readable) ── */
+[data-theme="dark"] .tag-freq.freq-common,
+[data-theme="dark"] .tag-freq.freq-sometimes,
+[data-theme="dark"] .vocab-group-count {
+  background: rgba(96, 165, 250, 0.16);
+  color: var(--accent);
+}
+
+[data-theme="dark"] .tag-freq.freq-everyday,
+[data-theme="dark"] .vocab-group--everyday > .vocab-group-title .vocab-group-count {
+  background: rgba(46, 158, 91, 0.20);
+  color: #6ee7a8;
+}
+
+[data-theme="dark"] .tag-freq.freq-occasional,
+[data-theme="dark"] .vocab-group--occasional > .vocab-group-title .vocab-group-count {
+  background: rgba(201, 138, 43, 0.20);
+  color: #e3b066;
+}
+
+[data-theme="dark"] .tag-freq.freq-rare,
+[data-theme="dark"] .vocab-group--rare > .vocab-group-title .vocab-group-count {
+  background: rgba(192, 89, 60, 0.22);
+  color: #f0a591;
+}
+
+/* ── Dark-mode syntax highlighting (Prism) ──
+   Prism copies the language class onto <pre>, so its light theme background
+   wins unless we override it for dark mode. */
+[data-theme="dark"] pre[class*="language-"],
+[data-theme="dark"] code[class*="language-"] {
+  background: var(--code-bg);
+  text-shadow: none;
+}
+[data-theme="dark"] pre[class*="language-"],
+[data-theme="dark"] code[class*="language-"],
+[data-theme="dark"] pre[class*="language-"] code {
+  color: #ccd5e2;
+}
+[data-theme="dark"] .token.comment,
+[data-theme="dark"] .token.prolog,
+[data-theme="dark"] .token.doctype,
+[data-theme="dark"] .token.cdata { color: #7c89a0; }
+[data-theme="dark"] .token.punctuation { color: #a9b4c7; }
+[data-theme="dark"] .token.keyword,
+[data-theme="dark"] .token.boolean { color: #c792ea; }
+[data-theme="dark"] .token.string,
+[data-theme="dark"] .token.char,
+[data-theme="dark"] .token.attr-value,
+[data-theme="dark"] .token.inserted { color: #9ece6a; }
+[data-theme="dark"] .token.function { color: #82aaff; }
+[data-theme="dark"] .token.number,
+[data-theme="dark"] .token.constant,
+[data-theme="dark"] .token.symbol { color: #f78c6c; }
+[data-theme="dark"] .token.operator,
+[data-theme="dark"] .token.entity,
+[data-theme="dark"] .token.url { color: #89ddff; background: none; }
+[data-theme="dark"] .token.class-name,
+[data-theme="dark"] .token.builtin,
+[data-theme="dark"] .token.property,
+[data-theme="dark"] .token.tag,
+[data-theme="dark"] .token.attr-name { color: #ffcb6b; }
+[data-theme="dark"] .token.decorator,
+[data-theme="dark"] .token.annotation { color: #ffcb6b; }
+
+/* Prism gives operators/entities a translucent white background; drop it in
+   both light and dark themes (it reads as a stray highlight box). */
+.token.operator,
+.token.entity,
+.token.url { background: none; }
+
+/* ── Thai flashcards (FSRS study) ──────────────────────────────────────────
+   Mobile-first study UI. Three screens (home / review / done) swap via the
+   [hidden] attribute; the review screen is a full-height flex column so the
+   grade buttons sit in the thumb zone at the bottom. */
+/* Trim main's bottom padding (site default 4rem) so the home screen fits in a
+   typical laptop viewport without an unnecessary scrollbar. */
+.fc-main {
+  max-width: 680px;
+  padding-bottom: 2rem;
+  /* Kill the mobile blue/grey flash browsers paint on every tap of a clickable
+     element (card, speaker, copy…); the cards have their own reveal/active
+     feedback. Inherited, so it covers all descendants. */
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Slim app-style eyebrow label instead of the boxed page banner: uppercase,
+   muted, centered, with a small accent diamond on each side. Used at all
+   widths so the settings panel below has more room to breathe, not just on
+   small phones. */
+.fc-banner {
+  width: auto;
+  margin: 0.4rem 0 1rem;
+  padding: 0;
+  text-align: center;
+  background: none;
+  border: none;
+  box-shadow: none;
+}
+.fc-banner h1 {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: none;
+}
+.fc-banner h1::before,
+.fc-banner h1::after {
+  content: "";
+  flex: none;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 2px;
+  background: var(--accent);
+  transform: rotate(45deg);
+}
+
+/* Deck picker at the very top of the home screen: choose which subset of words
+   this session draws from. Stats below update on change. */
+
+/* Stat cards: Due / New / Excluded */
+.fc-stats {
+  display: flex;
+  gap: 0.7rem;
+  margin-bottom: 1rem;
+}
+
+.fc-stat {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.85rem 0.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(3, 51, 102, 0.05);
+}
+
+.fc-stat-num {
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.fc-stat-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.fc-stat--due .fc-stat-num { color: var(--accent); }
+.fc-stat--new .fc-stat-num { color: #2e9e5b; }
+.fc-stat--left .fc-stat-num { color: var(--text); }
+.fc-stat--suspended .fc-stat-num { color: #b5482e; }
+[data-theme="dark"] .fc-stat--suspended .fc-stat-num { color: #f0a591; }
+
+/* Primary call to action — sits at the bottom of the home screen, below the
+   settings panel, so the eye lands on filters first and the button last. */
+.fc-start {
+  display: block;
+  width: 100%;
+  margin: 1.4rem 0 0.4rem;
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  padding: 0.9rem 1.2rem;
+  color: #fff;
+  background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(3, 51, 102, 0.18);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+}
+
+.fc-start:hover { filter: brightness(1.05); box-shadow: 0 8px 22px rgba(3, 51, 102, 0.24); }
+.fc-start:active { transform: translateY(1px) scale(0.995); }
+.fc-start--again { margin-top: 1.6rem; max-width: 280px; }
+
+.fc-home-note,
+.fc-done-note {
+  text-align: center;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* Collapsible session settings */
+/* Settings panel is always visible (no collapse), no surrounding box; rows
+   are separated by a thin top border for breathing room. */
+.fc-settings { margin-top: 0.4rem; }
+
+.fc-setting {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.6rem 0;
+  border-top: 1px solid var(--border);
+}
+.fc-setting:first-child { border-top: none; padding-top: 0.3rem; }
+
+.fc-setting-label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--accent-strong);
+}
+
+/* Info tooltip: a small "i" trigger with a bubble shown on hover / focus / tap. */
+.fc-info {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+.fc-info svg { width: 1.05rem; height: 1.05rem; }
+.fc-info:hover { color: var(--accent); }
+.fc-info-bubble {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 20;
+  width: max-content;
+  max-width: min(15rem, 84vw);
+  padding: 0.55rem 0.7rem;
+  border-radius: 8px;
+  background: var(--text);
+  color: var(--bg);
+  font-size: 0.8rem;
+  font-weight: 400;
+  line-height: 1.45;
+  text-align: left;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease;
+}
+.fc-info-bubble b { font-weight: 700; }
+/* Devices with a real pointer: pure hover (and keyboard focus); no click-to-stay. */
+@media (hover: hover) {
+  .fc-info:hover .fc-info-bubble,
+  .fc-info:focus-visible .fc-info-bubble {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+/* Touch devices: tap toggles the bubble (it stays until you tap away). */
+@media (hover: none) {
+  .fc-info.show .fc-info-bubble {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+/* Toggle switch (listening mode) */
+.fc-switch { position: relative; display: inline-flex; cursor: pointer; }
+.fc-switch input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.fc-switch-track {
+  display: inline-block;
+  position: relative;
+  width: 42px;
+  height: 24px;
+  border-radius: 999px;
+  background: var(--border);
+  transition: background 0.18s ease;
+}
+.fc-switch-thumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  transition: transform 0.18s ease;
+}
+.fc-switch input:checked + .fc-switch-track { background: var(--accent); }
+.fc-switch input:checked + .fc-switch-track .fc-switch-thumb { transform: translateX(18px); }
+.fc-switch input:focus-visible + .fc-switch-track {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.fc-stepper {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-left: auto;
+}
+.fc-stepper button {
+  width: 2rem;
+  height: 2rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--accent);
+  background: var(--surface);
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  cursor: pointer;
+}
+.fc-stepper button:active { background: var(--accent); color: #fff; }
+
+/* Number input that doubles as the stepper's value field; strip the native
+   spin buttons so the only controls are the round +/- next to it. */
+.fc-stepper-val {
+  width: 5rem;
+  text-align: center;
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  padding: 0.1rem 0;
+  -moz-appearance: textfield;
+}
+.fc-stepper-val:focus { outline: none; border-bottom-color: var(--accent); }
+.fc-stepper-val::-webkit-outer-spin-button,
+.fc-stepper-val::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+/* Keep the right-aligned selects in the flashcard setup (Deck, Direction) at
+   a single shared width so the column reads as a tidy stack. */
+.fc-setting > .vocab-deck-select { width: 250px; }
+
+/* Playback-speed segmented control: wraps onto its own row if the row runs
+   out of width (long labels, narrow phones) rather than overflowing. */
+#fc-speed-row { flex-wrap: wrap; row-gap: 0.4rem; }
+.fc-speed {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.35rem;
+  margin-left: auto;
+}
+.fc-speed button {
+  padding: 0.3rem 0.6rem;
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--accent);
+  background: var(--surface);
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  cursor: pointer;
+  line-height: 1.2;
+}
+.fc-speed button.active { background: var(--accent); color: #fff; }
+
+/* Desired-retention slider + its value readout. */
+.fc-retention {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-left: auto;
+}
+.fc-retention input[type="range"] {
+  width: 120px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+.fc-retention-val {
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text);
+  min-width: 2.4em; /* widest value (0.95) so the slider doesn't shift */
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── Review screen ── */
+/* Display gated behind :not([hidden]) so the hidden attribute always wins,
+   with no dependence on an ancestor class. This matters under the site's SPA
+   navigation, which copies only this page's <main> innerHTML into the previous
+   page's class-less <main>, so any guard scoped to .fc-main would miss. */
+.fc-review:not([hidden]) {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 150px);
+}
+
+.fc-review-top {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.4rem 0 0.2rem;
+}
+.fc-exit {
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 0.3rem;
+}
+.fc-exit:hover { color: var(--text); }
+.fc-progress {
+  flex: 1;
+  height: 6px;
+  background: var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.fc-progress-bar {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--accent), #2e9e5b);
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+.fc-remaining {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.fc-card-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem 0;
+}
+/* Card splits into two side-by-side bands: a body band (Thai/English text)
+   on the left and a tools band (icons) on the right. The bands are flex
+   siblings so the text can never overflow into the icon column. */
+.fc-card {
+  position: relative;
+  width: 100%;
+  min-height: 220px;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  padding: 0;
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 18px;
+  box-shadow: 0 8px 30px rgba(3, 51, 102, 0.10);
+  cursor: pointer;
+  text-align: center;
+  overflow: hidden;
+}
+.fc-card-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem 1.4rem;
+}
+.fc-card--freq-everyday { border-color: var(--freq-everyday); }
+.fc-card--freq-common { border-color: var(--freq-common); }
+.fc-card--freq-occasional { border-color: var(--freq-occasional); }
+.fc-card--freq-rare { border-color: var(--freq-rare); }
+
+/* "New" badge: the word has never been reviewed in either direction, so its
+   example sentences have not been proofread yet. It disappears as soon as the
+   card is graded, so a card only ever carries it once. */
+.fc-new-badge {
+  position: absolute;
+  top: 0.6rem;
+  left: 0.7rem;
+  padding: 0.16rem 0.5rem;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #fff;
+  background: #2e9e5b;
+  border-radius: 999px;
+  pointer-events: none;
+}
+.fc-new-badge[hidden] { display: none; }
+
+.fc-card-face { width: 100%; }
+.fc-card-face.fc-thai {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 2.6rem;
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--text);
+}
+body[data-thai-font="noto"] .fc-card-face.fc-thai {
+  font-family: 'Noto Sans Thai', sans-serif;
+}
+/* Listening mode: blur the Thai prompt; tapping the face peeks (removes blur). */
+.fc-card-face.fc-blur {
+  filter: blur(13px);
+  cursor: pointer;
+  user-select: none;
+}
+.fc-card-face.fc-en {
+  font-size: 1.5rem;
+  line-height: 1.4;
+  color: var(--text-soft);
+}
+.fc-card-back { animation: fc-reveal 0.22s ease; }
+@keyframes fc-reveal {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+.fc-card-divider {
+  width: 60%;
+  max-width: 240px;
+  height: 1px;
+  background: var(--border);
+}
+
+/* Tools column on the flashcard: speaker / copy / suspend stacked vertically
+   in their own band on the right of the card. As a flex sibling of the body,
+   the body can never spill into this column. */
+.fc-tools {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.7rem 0.7rem 0.7rem 0.4rem;
+  background: var(--surface-alt);
+  border-left: 1px solid var(--border);
+}
+.fc-tools > button {
+  width: 2.2rem;
+  height: 2.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  color: var(--accent);
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s, border-color 0.15s, transform 0.08s;
+}
+.fc-tools > button[hidden] { display: none; }
+.fc-tools > button:hover { color: var(--accent-strong); border-color: var(--accent); }
+/* Instant tactile feedback: the button visibly presses down on tap. */
+.fc-tools > button:active { transform: scale(0.88); }
+
+.fc-speak svg { width: 1.1rem; height: 1.1rem; }
+.fc-speak.playing { color: #fff; background: var(--accent); border-color: var(--accent); }
+
+.fc-copy svg { width: 1.05rem; height: 1.05rem; }
+.fc-copy-i--check { display: none; }
+.fc-copy.copied {
+  color: #fff;
+  background: #2e9e5b;
+  border-color: #2e9e5b;
+}
+.fc-copy.copied .fc-copy-i--copy { display: none; }
+.fc-copy.copied .fc-copy-i--check { display: block; }
+
+.fc-write svg { width: 1.05rem; height: 1.05rem; }
+
+.fc-suspend svg { width: 1.05rem; height: 1.05rem; }
+.fc-suspend:hover { color: #b5482e; border-color: #b5482e; }
+
+.fc-ex-card-btn svg { width: 1.05rem; height: 1.05rem; }
+
+/* ── Action zone (thumb reach) ── */
+.fc-actions { padding: 0.6rem 0 1rem; }
+.fc-show {
+  display: block;
+  width: 100%;
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  padding: 0.95rem;
+  color: #fff;
+  background: var(--accent-strong);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: filter 0.12s;
+}
+.fc-show[hidden] { display: none; }
+.fc-show:hover { filter: brightness(1.08); }
+
+.fc-grades:not([hidden]) {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+.fc-grade {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  min-height: 60px;
+  padding: 0.6rem 0.3rem;
+  font-family: 'Computer Modern Serif', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: filter 0.12s, transform 0.1s;
+}
+.fc-grade:active { transform: translateY(1px); }
+.fc-grade:hover { filter: brightness(1.05); }
+.fc-grade-ivl {
+  font-size: 0.72rem;
+  font-weight: 700;
+  opacity: 0.85;
+}
+.fc-grade--again { color: #b5482e; background: #f7e9e4; }
+.fc-grade--hard { color: #b8791d; background: #faf0df; }
+.fc-grade--good { color: #2e9e5b; background: #e6f4ec; }
+.fc-grade--easy { color: var(--accent-strong); background: #eaf3fc; }
+
+/* ── Done screen ── */
+.fc-done:not([hidden]) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: calc(100vh - 200px);
+}
+.fc-done-check {
+  width: 84px;
+  height: 84px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: linear-gradient(135deg, #2e9e5b, #36b46a);
+  border-radius: 50%;
+  box-shadow: 0 8px 24px rgba(46, 158, 91, 0.3);
+  margin-bottom: 1.4rem;
+}
+.fc-done-check svg { width: 44px; height: 44px; }
+.fc-done-title {
+  font-size: 1.8rem;
+  margin: 0 0 0.4rem;
+  border: none;
+}
+.fc-done-sub { color: var(--text-muted); margin: 0; }
+
+/* ── Dark-mode tints (mirror the vocab pill treatment) ── */
+[data-theme="dark"] .fc-grade--again { background: rgba(192, 89, 60, 0.22); color: #f0a591; }
+[data-theme="dark"] .fc-grade--hard { background: rgba(201, 138, 43, 0.20); color: #e3b066; }
+[data-theme="dark"] .fc-grade--good,
+[data-theme="dark"] .fc-stat--new .fc-stat-num { color: #6ee7a8; }
+[data-theme="dark"] .fc-grade--good { background: rgba(46, 158, 91, 0.20); }
+[data-theme="dark"] .fc-grade--easy { background: rgba(96, 165, 250, 0.16); color: var(--accent); }
+[data-theme="dark"] .fc-new-badge { background: #6ee7a8; color: #0f172a; }
+[data-theme="dark"] .fc-stepper button:active { color: #0f172a; }
+[data-theme="dark"] .fc-speed button.active { color: #0f172a; }
+
+/* ── Phone layout ── */
+@media (max-width: 600px) {
+  .fc-card-face.fc-thai { font-size: 2.2rem; }
+  .fc-card-face.fc-en { font-size: 1.3rem; }
+  .fc-grade { font-size: 0.92rem; padding: 0.6rem 0.15rem; }
+  .fc-stat-num { font-size: 1.7rem; }
+  .fc-stats { gap: 0.4rem; }
+  .fc-stat { padding: 0.7rem 0.25rem; }
+  .fc-stat-label { font-size: 0.66rem; letter-spacing: 0.02em; }
+  .fc-start { margin-bottom: 1.6rem; }
+  /* Fill the vertical space so the card no longer floats in empty room, and
+     keep extra top/bottom padding so the speaker/copy icons sit clear of the
+     text rather than touching it. */
+  .fc-card-wrap { flex: 1; padding: 0.8rem 0; align-items: stretch; }
+  .fc-card { min-height: 0; }
+  .fc-card-body { padding: 1.8rem 1.2rem; gap: 1.4rem; }
+  .fc-tools { padding: 0.6rem 0.5rem; gap: 0.35rem; }
+}
+
+/* ── Flashcards: writing the Thai (pen button on the card) ── */
+.fc-produce {
+  margin: 0.2rem auto 0.6rem;
+  width: 100%;
+  max-width: 460px;
+}
+/* On a phone the box sits low on the screen, exactly where the on-screen
+   keyboard comes up, so a focused field ends up hidden behind it. While the
+   keyboard is open the box is docked to the keyboard's top edge: JS sets
+   `top` from visualViewport geometry (not `bottom` — iOS keeps the layout
+   viewport full-height under the keyboard and only pans the visible part, so
+   a bottom-pinned element lands behind the keys). It drops back into the page
+   flow as soon as the keyboard closes. */
+.fc-produce--docked {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 60;
+  margin: 0;
+  padding: 0.7rem 0.8rem;
+  box-sizing: border-box;
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  box-shadow: 0 -6px 18px rgba(0, 0, 0, 0.12);
+}
+
+/* The spelling box itself */
+.fc-type-wrap { position: relative; width: 100%; }
+.fc-type-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.7rem 2.6rem; /* symmetric room so the result icon never overlaps text */
+  font-family: 'Noto Sans Thai', 'Sarabun', sans-serif;
+  font-size: 1.5rem;
+  text-align: center;
+  color: var(--text);
+  background: var(--surface);
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  outline: none;
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+}
+body[data-thai-font="sarabun"] .fc-type-input { font-family: 'Sarabun', 'Noto Sans Thai', sans-serif; }
+/* Placeholder is Latin text, so render it in the system UI font (the Thai font's
+   Latin glyphs look dated); the Thai the user types still uses the input font. */
+.fc-type-input::placeholder {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, system-ui, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+.fc-type-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(74, 144, 217, 0.18); }
+/* Only after Check (set in JS): coloured border, no per-keystroke feedback. */
+.fc-type-input.is-correct { border-color: var(--freq-everyday); box-shadow: 0 0 0 3px rgba(46, 158, 91, 0.18); }
+.fc-type-input.is-wrong { border-color: var(--freq-rare); box-shadow: 0 0 0 3px rgba(192, 89, 60, 0.16); }
+.fc-type-input:disabled { opacity: 1; }
+
+/* Correct/incorrect icon pinned inside the input, on the right. */
+.fc-type-icon {
+  position: absolute;
+  right: 0.7rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+.fc-type-icon svg { width: 100%; height: 100%; }
+.fc-type-icon.is-correct { color: var(--freq-everyday); }
+.fc-type-icon.is-wrong { color: var(--freq-rare); }
+
+/* ── Vocabulary: comprehension-coverage dashboard ── */
+/* Native fieldset/legend: the browser breaks the top border around the legend,
+   so there's no painted rectangle masking the frame (no white block). */
+.cov-dash {
+  min-inline-size: 0; /* reset fieldset's content-based min width */
+  margin: 0.45rem 0 1.5rem;
+  padding: 1.15rem 1.25rem 1.2rem;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: 0 3px 14px rgba(3, 51, 102, 0.06);
+}
+.cov-dash-title {
+  margin-inline: auto; /* centre the legend on the top edge */
+  padding: 0 0.55rem;
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-soft);
+}
+.cov-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.7rem;
+}
+.cov-tier {
+  --tier: var(--accent);
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 0.85rem 0.95rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+.cov-tier--everyday { --tier: var(--freq-everyday); }
+.cov-tier--common { --tier: var(--freq-common); }
+.cov-tier--occasional { --tier: var(--freq-occasional); }
+.cov-tier--rare { --tier: var(--freq-rare); }
+
+.cov-tier-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.cov-tier-name {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+.cov-tier-pct {
+  font-size: 1.7rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--tier);
+  font-variant-numeric: tabular-nums;
+}
+.cov-pct-sign { font-size: 0.9rem; font-weight: 600; margin-left: 1px; }
+
+.cov-track {
+  position: relative;
+  height: 8px;
+  background: var(--surface-muted);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.cov-fill {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 0;
+  border-radius: 999px;
+  background: var(--tier);
+  transition: width 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.cov-fill--learning { opacity: 0.28; }
+
+.cov-tier-foot { font-size: 0.74rem; color: var(--text-muted); }
+.cov-tier-foot strong { color: var(--text); font-weight: 700; }
+.cov-learning-n { color: var(--tier); opacity: 0.9; }
+
+@media (max-width: 480px) {
+  .cov-tier-pct { font-size: 1.45rem; }
+  .cov-grid { gap: 0.55rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cov-fill { transition: none; }
+}
+
+/* ── Example sentences ────────────────────────────────────────────────────────
+   Shared by the flashcard reveal (.fc-ex) and the vocab examples modal
+   (.ex-modal). One card per meaning, each holding a list of sentence rows; each
+   row shows a Thai and an English line with its own speaker button. */
+.ex-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  text-align: left;
+}
+.ex-meaning {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.75rem 0.9rem;
+}
+/* Multi-meaning examples: one framed block with a tab per meaning. Tabs sit in
+   a row at the top; only the active meaning's sentences (panel) are shown. */
+.ex-block--tabs {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 0.6rem 0.7rem;
+}
+.ex-tabs {
+  display: flex;
+  gap: 0.35rem;
+  margin-bottom: 0.6rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.ex-tabs::-webkit-scrollbar { display: none; }
+.ex-tab {
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: 13rem;
+  padding: 0.38rem 0.8rem;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.15s, background 0.15s, border-color 0.15s;
+}
+.ex-tab:hover { color: var(--text-soft); border-color: var(--accent); }
+.ex-tab.is-active {
+  color: #fff;
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.ex-tab-label {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ex-panel { display: none; }
+.ex-panel.is-active { display: block; animation: fc-reveal 0.18s ease; }
+.ex-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+.ex-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.ex-item + .ex-item {
+  border-top: 1px dashed var(--border);
+  padding-top: 0.65rem;
+}
+.ex-line {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+.ex-th {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--text);
+}
+body[data-thai-font="noto"] .ex-th { font-family: 'Noto Sans Thai', sans-serif; }
+.ex-en {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: var(--text-muted);
+}
+.ex-play {
+  flex: 0 0 auto;
+  width: 1.75rem;
+  height: 1.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  color: var(--accent);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s, border-color 0.15s, transform 0.08s;
+}
+.ex-play svg { width: 0.85rem; height: 0.85rem; }
+.ex-play:hover { color: var(--accent-strong); border-color: var(--accent); }
+/* Instant tactile feedback: the button visibly presses down on tap. */
+.ex-play:active { transform: scale(0.88); }
+.ex-play.playing { color: #fff; background: var(--accent); border-color: var(--accent); }
+.ex-line--en .ex-play { color: var(--text-muted); }
+.ex-line--en .ex-play:hover { color: var(--accent); }
+
+/* Flashcard reveal: examples sit between the card and the action buttons. */
+.fc-ex {
+  margin: 0.1rem 0 0.3rem;
+  text-align: center;
+  animation: fc-reveal 0.22s ease;
+}
+
+/* Vocab examples button (in the per-card tools column). Matches the sibling
+   speaker / copy / suspend controls: a faintly-visible rounded square that
+   brightens on hover. */
+.vocab-ex-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid #e3e3e3;
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+  opacity: 0.45;
+  transition: opacity 0.18s, color 0.18s, border-color 0.18s;
+}
+.vocab-ex-btn svg { width: 15px; height: 15px; }
+.vocab-card:hover .vocab-ex-btn,
+.vocab-card--flip:hover .vocab-ex-btn { opacity: 0.8; }
+.vocab-ex-btn:hover {
+  opacity: 1;
+  color: var(--accent-strong);
+  border-color: var(--accent);
+}
+
+/* Examples modal: wider than the confirm modal. The backdrop (not the modal) is
+   the scroll container, so a modal that fits shows no scrollbar at all and only
+   a genuinely tall list scrolls. align-items:flex-start + margin:auto keeps it
+   vertically centred when it fits, top-anchored (and scrollable) when it doesn't. */
+.ex-modal-backdrop {
+  align-items: flex-start;
+  overflow-y: auto;
+  padding: 1.2rem;
+}
+.ex-modal {
+  position: relative;
+  margin: auto;
+  max-width: 460px;
+  width: 92%;
+  text-align: left;
+}
+.ex-modal-head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin-bottom: 0.95rem;
+  padding-right: 1.6rem;
+}
+.ex-modal-line {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+.ex-modal-thai {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 1.85rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text);
+}
+body[data-thai-font="noto"] .ex-modal-thai { font-family: 'Noto Sans Thai', sans-serif; }
+.ex-modal-en {
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+.ex-modal-close {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.6rem;
+  font-size: 1.7rem;
+  line-height: 1;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.1rem 0.35rem;
+}
+.ex-modal-close:hover { color: var(--text); }
