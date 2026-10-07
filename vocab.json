@@ -255595,5 +255595,34 @@
     "audio": true,
     "audio_en_src": "gravity",
     "audio_en": true
+  },
+  {
+    "id": "new-220",
+    "thai": "วัวแก่กินหญ้าอ่อน",
+    "english": "(idiom) an older man dating or marrying a much younger woman",
+    "frequency": "common",
+    "examples": [
+      {
+        "meaning": "(idiom) an older man dating or marrying a much younger woman",
+        "sentences": [
+          {
+            "thai": "เขาอายุหกสิบ แฟนอายุยี่สิบ วัวแก่กินหญ้าอ่อนชัดๆ",
+            "en": "He's sixty and his girlfriend is twenty. Talk about robbing the cradle!",
+            "audio_src": "เขาอายุหกสิบ แฟนอายุยี่สิบ วัวแก่กินหญ้าอ่อนชัดๆ",
+            "audio_en_src": "He's sixty and his girlfriend is twenty. Talk about robbing the cradle!"
+          },
+          {
+            "thai": "เขาโดนเพื่อนแซวว่าวัวแก่กินหญ้าอ่อน",
+            "en": "His friends tease him for robbing the cradle.",
+            "audio_src": "เขาโดนเพื่อนแซวว่าวัวแก่กินหญ้าอ่อน",
+            "audio_en_src": "His friends tease him for robbing the cradle."
+          }
+        ]
+      }
+    ],
+    "audio_src": "วัวแก่กินหญ้าอ่อน",
+    "audio": true,
+    "audio_en_src": "an older man dating or marrying a much younger woman",
+    "audio_en": true
   }
 ]
