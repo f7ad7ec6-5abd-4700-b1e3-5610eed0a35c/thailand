@@ -10,7 +10,8 @@ in the same folder.
 The identical hash is mirrored in flashcards.js and vocab.js as audioShard(); if you
 change it here, change it there too (and re-run migrate_audio_shards.py).
 
-The clips themselves live in two sibling repos served via the jsDelivr CDN, split by
+The clips themselves live in two sibling repos, loaded from raw.githubusercontent.com
+(jsDelivr refuses repos over 50 MB), split by
 shard: 00-7f in thailand-audio-1, 80-ff in thailand-audio-2 (see audio_repo_dir, and
 audioBaseFor() in flashcards.js / vocab.js). Within a repo, shards sit at the root.
 

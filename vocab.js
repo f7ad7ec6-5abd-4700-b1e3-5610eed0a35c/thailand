@@ -54,19 +54,20 @@
     for (var i = 0; i < id.length; i++) h = (h * 33 + id.charCodeAt(i)) >>> 0;
     return ("0" + (h & 0xff).toString(16)).slice(-2);
   }
-  // Audio lives on two public GitHub repos served via the jsDelivr CDN, split by
+  // Audio lives on two public GitHub repos, loaded straight from GitHub (jsDelivr
+  // refuses repos over 50 MB, so it failed on these 1.6 GB repos), split by
   // shard: shards 00-7f are in thailand-audio-1, 80-ff in thailand-audio-2. A
   // word's clips all share one shard, so they always resolve to the same repo.
   // Keep these constants identical in flashcards.js / vocab.js / audio_paths.py.
-  var AUDIO_CDN_1 = "https://cdn.jsdelivr.net/gh/f7ad7ec6-5abd-4700-b1e3-5610eed0a35c/thailand-audio-1@master/";
-  var AUDIO_CDN_2 = "https://cdn.jsdelivr.net/gh/f7ad7ec6-5abd-4700-b1e3-5610eed0a35c/thailand-audio-2@master/";
+  var AUDIO_CDN_1 = "https://raw.githubusercontent.com/f7ad7ec6-5abd-4700-b1e3-5610eed0a35c/thailand-audio-1/master/";
+  var AUDIO_CDN_2 = "https://raw.githubusercontent.com/f7ad7ec6-5abd-4700-b1e3-5610eed0a35c/thailand-audio-2/master/";
   function audioBaseFor(id) {
     return parseInt(audioShard(id), 16) < 0x80 ? AUDIO_CDN_1 : AUDIO_CDN_2;
   }
-  // Cache-busting token appended to every clip URL. jsDelivr serves the @master
-  // clips with max-age=604800, so a regenerated clip that keeps its filename
+  // Cache-busting token appended to every clip URL. Clips get cached, so a
+  // regenerated clip that keeps its filename
   // (a reworded sentence, a deleted meaning group shifting ex1_* down to ex0_*,
-  // a thai_tts hint) would keep playing from the browser cache for a week while
+  // a thai_tts hint) would keep playing from the cache while
   // the entry on screen already shows the new text. Keying the URL on the exact
   // text that was synthesized -- audio_src / audio_en_src, written by
   // gen_audio.py and gen_example_audio.py -- makes the URL change precisely when
