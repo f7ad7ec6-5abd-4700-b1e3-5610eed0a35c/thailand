@@ -65168,8 +65168,9 @@
           {
             "thai": "คนเป็นโรคหอบหืดควรพกยาติดตัว",
             "en": "People with asthma should carry their medicine with them.",
-            "audio_src": "คนเป็นโรคหอบหืดควรพกยาติดตัว",
-            "audio_en_src": "People with asthma should carry their medicine with them."
+            "audio_src": "คนเป็นโรคหอบหืด·ควร·พก·ยา·ติดตัว",
+            "audio_en_src": "People with asthma should carry their medicine with them.",
+            "thai_tts": "คนเป็นโรคหอบหืด·ควร·พก·ยา·ติดตัว"
           }
         ]
       }
@@ -155696,9 +155697,9 @@
         "meaning": "monitor lizard",
         "sentences": [
           {
-            "thai": "ที่สวนลุมมีเหี้ยเยอะมาก",
+            "thai": "ที่สวนลุมพินีมีเหี้ยเยอะมาก",
             "en": "There are tons of monitor lizards at Lumphini Park.",
-            "audio_src": "ที่สวนลุมมีเหี้ยเยอะมาก",
+            "audio_src": "ที่สวนลุมพินีมีเหี้ยเยอะมาก",
             "audio_en_src": "There are tons of monitor lizards at Lumphini Park."
           },
           {
@@ -182041,8 +182042,9 @@
           {
             "thai": "ไอ้อีดอก กล้ามาแย่งแฟนกู",
             "en": "You bitch, how dare you steal my boyfriend.",
-            "audio_src": "ไอ้อีดอก กล้ามาแย่งแฟนกู",
-            "audio_en_src": "You bitch, how dare you steal my boyfriend."
+            "audio_src": "ไอ้·อี·ดอก กล้ามาแย่งแฟนกู",
+            "audio_en_src": "You bitch, how dare you steal my boyfriend.",
+            "thai_tts": "ไอ้·อี·ดอก กล้ามาแย่งแฟนกู"
           }
         ]
       }
